@@ -72,9 +72,9 @@ ER-модель д.б. представлена в виде ER-диаграмм�
 </h3>
 </p3>
 
-[SQL-код создания таблиц](https://github.com/nastyandrianova/bdbd_labbs/blob/main/lab2/bd2sql.txt)
+[SQL-код создания таблиц](https://github.com/nastyandrianova/bdbd_labbs/blob/main/lab2/part1.sql)
 
 #### Диаграмма базы данных
-![image](/lab1/bd2dia.png)
+![image](/lab1/dialab2.png)
 
 
