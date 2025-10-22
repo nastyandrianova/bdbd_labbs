@@ -1,0 +1,1 @@
+CREATE DATABASE Auto_rental_db;
