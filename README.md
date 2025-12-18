@@ -92,4 +92,4 @@ ER-модель д.б. представлена в виде ER-диаграмм�
 
 [Часть 1](https://github.com/nastyandrianova/bdbd_labbs/blob/main/lab3/Andrianova_PMI32_Chast_1.docx)
 
-[Часть 2]()
+[Часть 2](https://github.com/nastyandrianova/bdbd_labbs/blob/main/lab3/Andrianova_PMI_32_Chast_2.docx)
