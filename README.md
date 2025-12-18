@@ -54,7 +54,7 @@ ER-модель д.б. представлена в виде ER-диаграмм�
 ![image](/lab1/bd222.png)
 
 #### Реляционная модель
-![image](/lab1/bd2_nastya1.png)
+![image](https://github.com/nastyandrianova/bdbd_labbs/blob/main/lab1/relmodel.jpg)
 
 <a id="lab2"></a>
 
