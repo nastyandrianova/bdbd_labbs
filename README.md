@@ -75,6 +75,6 @@ ER-модель д.б. представлена в виде ER-диаграмм�
 [SQL-код создания таблиц](https://github.com/nastyandrianova/bdbd_labbs/blob/main/lab2/last.sql)
 
 #### Диаграмма базы данных
-![image](https://github.com/nastyandrianova/bdbd_labbs/blob/main/lab1/lab2.jpg))
+![image](https://github.com/nastyandrianova/bdbd_labbs/blob/main/lab1/lab2.jpg)
 
 
