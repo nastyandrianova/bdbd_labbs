@@ -1,0 +1,74 @@
+CREATE LOGIN User_Manager WITH PASSWORD = '1234567'
+CREATE USER User_Manager FOR LOGIN User_Manager
+CREATE LOGIN User_Employee WITH PASSWORD = '1234567'
+CREATE USER User_Employee FOR LOGIN User_Employee
+
+CREATE ROLE Role_Manager
+CREATE ROLE Role_Employee
+
+ALTER ROLE Role_Manager ADD MEMBER User_Manager-- Добавл пользователей к ролям 
+ALTER ROLE Role_Employee ADD MEMBER User_Employee
+
+--права руководителя 
+GRANT SELECT, INSERT, UPDATE, DELETE ON Client TO Role_Manager
+GRANT SELECT, INSERT, UPDATE, DELETE ON Discount TO Role_Manager
+GRANT SELECT, INSERT, UPDATE, DELETE ON RentalPoint TO Role_Manager
+GRANT SELECT, INSERT, UPDATE, DELETE ON Car TO Role_Manager
+GRANT SELECT, INSERT, UPDATE, DELETE ON [Return] TO Role_Manager
+GRANT SELECT, INSERT, UPDATE, DELETE ON Deal TO Role_Manager
+GRANT SELECT, INSERT, UPDATE, DELETE ON Deal_Car TO Role_Manager
+
+-- права на создание объектов БД
+GRANT CREATE TABLE TO Role_Manager
+GRANT CREATE VIEW TO Role_Manager
+GRANT CREATE PROCEDURE TO Role_Manager
+GRANT CREATE FUNCTION TO Role_Manager
+
+-- Права с возможностью передачи
+GRANT SELECT ON Client TO Role_Manager WITH GRANT OPTION
+GRANT SELECT ON Car TO Role_Manager WITH GRANT OPTION
+GRANT SELECT ON Deal TO Role_Manager WITH GRANT OPTION
+
+-- Выдаем права сотруднику
+GRANT SELECT ON Discount TO Role_Employee
+GRANT SELECT ON RentalPoint TO Role_Employee
+GRANT SELECT ON Car TO Role_Employee
+GRANT SELECT ON [Return] TO Role_Employee
+GRANT SELECT ON Deal TO Role_Employee
+GRANT SELECT ON Deal_Car TO Role_Employee
+
+-- Даем INSERT права отдельно
+GRANT INSERT ON Client TO Role_Employee
+GRANT INSERT ON [Return] TO Role_Employee
+GRANT INSERT ON Deal TO Role_Employee
+GRANT INSERT ON Deal_Car TO Role_Employee
+
+-- Запреты для сотрудника
+DENY SELECT ON Client TO Role_Employee
+DENY UPDATE ON Client TO Role_Employee
+DENY DELETE ON Client TO Role_Employee
+
+DENY UPDATE ON [Return] TO Role_Employee
+DENY DELETE ON [Return] TO Role_Employee
+
+DENY UPDATE ON Deal TO Role_Employee
+DENY DELETE ON Deal TO Role_Employee
+
+DENY UPDATE ON Deal_Car TO Role_Employee
+DENY DELETE ON Deal_Car TO Role_Employee
+
+DENY UPDATE ON Car TO Role_Employee
+DENY DELETE ON Car TO Role_Employee
+
+DENY UPDATE ON Discount TO Role_Employee
+DENY DELETE ON Discount TO Role_Employee
+
+DENY UPDATE ON RentalPoint TO Role_Employee
+DENY DELETE ON RentalPoint TO Role_Employee
+
+-- Запреты на создание объектов БД
+DENY CREATE TABLE TO Role_Employee
+DENY CREATE VIEW TO Role_Employee
+DENY CREATE PROCEDURE TO Role_Employee
+DENY CREATE FUNCTION TO Role_Employee
+

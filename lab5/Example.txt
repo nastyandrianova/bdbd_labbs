@@ -1,0 +1,24 @@
+
+-- Примеры для руководителя
+EXECUTE AS USER = 'User_Manager'
+
+SELECT * FROM Client          
+SELECT * FROM Car                       
+
+DELETE FROM [Return] WHERE ID = 999  
+
+REVERT
+
+-- Примеры для сотрудника
+EXECUTE AS USER = 'User_Employee'
+
+SELECT * FROM Car                   
+SELECT * FROM Discount               
+SELECT * FROM RentalPoint            
+
+SELECT * FROM Client
+
+DELETE FROM Client WHERE ID = 1
+DELETE FROM Deal WHERE ID = 1
+
+REVERT

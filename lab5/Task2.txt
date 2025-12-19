@@ -1,0 +1,77 @@
+
+ALTER TABLE Client
+ALTER COLUMN PassportData ADD MASKED WITH (FUNCTION = 'partial(2,"xxxx",0)')
+
+-- право видеть немаксированные
+GRANT UNMASK TO Role_Manager
+
+-- право видеть только маскированные 
+GRANT SELECT ON Client TO Role_Employee
+
+--проверка
+EXECUTE AS USER = 'User_Manager'
+SELECT TOP 3 PassportData FROM Client
+REVERT
+EXECUTE AS USER = 'User_Employee'
+SELECT TOP 3 PassportData FROM Client
+REVERT
+GO
+
+
+CREATE FUNCTION MaskPhone (--маскирование тел
+    @phone NVARCHAR(20)
+)
+RETURNS NVARCHAR(20)
+AS
+BEGIN
+    IF IS_MEMBER('Role_Manager') = 1
+        RETURN @phone
+    RETURN '***-***-**-**'
+END
+GO
+
+CREATE FUNCTION MaskAddress (--маскиров адресов
+    @address NVARCHAR(100)
+)
+RETURNS NVARCHAR(100)
+AS
+BEGIN
+    IF IS_MEMBER('Role_Manager') = 1
+        RETURN @address
+    
+    DECLARE @city NVARCHAR(50)
+    
+    IF @address LIKE '%Москва%' SET @city = 'Москва'
+    ELSE IF @address LIKE '%Санкт-Петербург%' SET @city = 'Санкт-Петербург'
+    ELSE IF @address LIKE '%Екатеринбург%' SET @city = 'Екатеринбург'
+    ELSE IF @address LIKE '%Новосибирск%' SET @city = 'Новосибирск'
+    ELSE IF @address LIKE '%Казань%' SET @city = 'Казань'
+    ELSE IF @address LIKE '%Ростов-на-Дону%' SET @city = 'Ростов-на-Дону'
+    ELSE IF @address LIKE '%Владивосток%' SET @city = 'Владивосток'
+    ELSE IF @address LIKE '%Нижний Новгород%' SET @city = 'Нижний Новгород'
+    ELSE SET @city = 'Город клиента'
+    
+    RETURN @city
+END
+GO
+
+CREATE VIEW vw_Client_Protected
+AS
+SELECT 
+    ID,
+    FullName,
+    dbo.MaskPhone(Phone) AS Phone,
+    dbo.MaskAddress([Address]) AS [Address]
+FROM 
+    Client
+GO
+
+GRANT SELECT ON vw_Client_Protected TO Role_Employee
+
+-- Проверка
+EXECUTE AS USER = 'User_Manager'
+SELECT TOP 3 * FROM Client
+REVERT
+EXECUTE AS USER = 'User_Employee'
+SELECT TOP 3 * FROM vw_Client_Protected
+REVERT
